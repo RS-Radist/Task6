@@ -92,50 +92,69 @@ void ShowArray(DynamicArray &x)
     }
     std::cout << "\n";
 }
+bool IsArraysEqual(DynamicArray one, DynamicArray two)
+{
+    if(one.GetSize() != two.GetSize())
+        return false;
+    
+    for (int i =0; i<one.GetSize(); ++i)
+    {
+        if(one[i]!=two[i]) // one.operator[](i)
+            return false;
+    }
+    return true;
+}
+
 //TEST
-bool TestPlusFunction (DynamicArray one,DynamicArray two,DynamicArray exp)
+
+bool TestPlusFunction (DynamicArray one,DynamicArray two,DynamicArray exp) // +
 {
     DynamicArray ret=one+two;
-    return (ret == exp) ? true : false;
+    return IsArraysEqual (ret,exp);
     
 }
-bool TestPlus_X_Function (DynamicArray one,int x,DynamicArray exp)
+bool TestPlus_X_Function (DynamicArray one,int x,DynamicArray exp) // +
 {
     DynamicArray ret=one+x;
-    return (ret== exp) ? true : false;
+    return IsArraysEqual (ret,exp);
 }
-bool TestPlus_X_Equal_Function (DynamicArray one,int x,DynamicArray exp)
+bool TestPlus_X_Equal_Function (DynamicArray one,int x,DynamicArray exp)  // -
 {
+    
     one+=x;
-    return (one == exp) ? true : false;
+    return IsArraysEqual (one,exp);
 }
-bool TestPlus_X_Equal_Mas_Function (DynamicArray one,DynamicArray two,DynamicArray exp)
+bool TestPlus_X_Equal_Mas_Function (DynamicArray one,DynamicArray two,DynamicArray exp) // -
 {
     one+=two;
-    return (one == exp) ? true : false;
+    DynamicArray ret=one;
+    return IsArraysEqual (ret,exp);
 }
 
 
-bool TestMinusFunction (DynamicArray one,DynamicArray two,DynamicArray exp)
+bool TestMinusFunction (DynamicArray one,DynamicArray two,DynamicArray exp) // -
 {
     DynamicArray ret=one-two;
     return (ret == exp) ? true : false;
 }
-bool TestMinus_X_Function (DynamicArray one,int x,DynamicArray exp)
+bool TestMinus_X_Function (DynamicArray one,int x,DynamicArray exp)   // -
 {
     DynamicArray ret=one-x;
     return (ret == exp) ? true : false;
 }
-bool TestMinus_X_Equal_Function (DynamicArray one,int x,DynamicArray exp)
+bool TestMinus_X_Equal_Function (DynamicArray one,int x,DynamicArray exp) // -
 {
     one-=x;
-    return (one == exp) ? true : false;
+    DynamicArray ret=one;
+    return IsArraysEqual (ret,exp);
 }
 bool TestMinus_X_Equal_Mas_Function (DynamicArray one,DynamicArray two,DynamicArray exp)
 {
     one-=two;
-    return (one == exp) ? true : false;
+    DynamicArray ret=one;
+    return IsArraysEqual (ret,exp);
 }
+
 
 
 bool TestMultFunction (DynamicArray one,DynamicArray two,DynamicArray exp)
@@ -161,8 +180,6 @@ bool TestMult_X_Equal_Mas_Function (DynamicArray one,DynamicArray two,DynamicArr
 
 
 
-
-
 bool TestDivFunction (DynamicArray one,DynamicArray two,DynamicArray exp)
 {
     DynamicArray ret=one / two;
@@ -183,18 +200,9 @@ bool TestDiv_X_Eual_Mas_Function (DynamicArray one,DynamicArray two,DynamicArray
     one /= two;
     return (one == exp) ? true : false;
 }
-bool IsArraysEqual(DynamicArray one, DynamicArray two)
-{
-    if(one.GetSize() != two.GetSize())
-        return false;
-    
-    for (int i =0; i<one.GetSize(); ++i)
-    {
-        if(one[i]!=two[i]) // one.operator[](i)
-            return false;
-    }
-    return true;
-}
+
+
+
 
 
 
@@ -347,11 +355,10 @@ int main()
     ShowArray(sumMinus2);
       */
     
+     /*
+    //TEST 1
     int size=5;
     int dynamycSize;
-    
-    //TEST 1
-    /*
     DynamicArray Mas(2);
     RandomArray(Mas,2);
     ShowArray(Mas);
@@ -360,7 +367,7 @@ int main()
     RandomArray(Mas1,size);
     ShowArray(Mas1);
     DynamicArray MasSum=Mas+Mas1;
-    TEST(TestPlusFunction(Mas, Mas1, MasSum), "TEST + (Mas + Mas)");
+    TEST(TestPlusFunction(Mas, Mas1, MasSum), "TEST + (Mas + Mas) ");
     std::cout<<std::endl;
     ShowArray(MasSum);
     */
@@ -373,7 +380,7 @@ int main()
     std::cout<<std::endl;
     int x=2;
     DynamicArray MasSum=Mas+x;
-    TEST(TestPlus_X_Function(Mas, x, MasSum), "TEST + (Mas + X)");
+    TEST(TestPlus_X_Function(Mas, x, MasSum), "TEST + (Mas + X) ");
     std::cout<<std::endl;
     ShowArray(MasSum);
     */
@@ -384,11 +391,12 @@ int main()
     RandomArray(Mas,5);
     ShowArray(Mas);
     std::cout<<std::endl;
-    Mas+=6;;
-    TEST(TestPlus_X_Equal_Function(Mas, 6, Mas), "TEST + (Mas + X)");
+    int x=5;
+    Mas+=x;
+    TEST(TestPlus_X_Equal_Function(Mas, x, Mas), "TEST + (Mas + X)");
     std::cout<<std::endl;
     ShowArray(Mas);
-    */
+       */                   //-
     
     //TEST 4
     /*
@@ -400,12 +408,68 @@ int main()
     RandomArray(Mas1,5);
     ShowArray(Mas1);
     Mas+=Mas1;
-    TEST(TestPlus_X_Equal_Mas_Function(Mas, 6, Mas), "TEST + (Mas + X)");
+    TEST(TestPlus_X_Equal_Mas_Function(Mas, Mas1, Mas), "TEST + (Mas + X)");
     std::cout<<std::endl;
     ShowArray(Mas);
+    */                  //-
+    
+    //TEST 5               // -
+    /*
+     DynamicArray Mas(5);
+     RandomArray(Mas,5);
+     ShowArray(Mas);
+     std::cout<<std::endl;
+     DynamicArray Mas1(5);
+     RandomArray(Mas1,5);
+     ShowArray(Mas1);
+     DynamicArray MasSum=Mas-Mas1;
+     TEST(TestMinusFunction(Mas, Mas1, MasSum), "TEST + (Mas + X)");
+     std::cout<<std::endl;
+     ShowArray(MasSum);
+    *
+    
+    //TEST 6 //ПРОВАЛ
+    /*
+    DynamicArray Mas(5);
+    RandomArray(Mas,5);
+    ShowArray(Mas);
+    std::cout<<std::endl;
+    int x=3;
+    DynamicArray MasSum=Mas-x;
+    TEST(TestMinus_X_Function(Mas, x, MasSum), "TEST + (Mas + Mas)");
+    std::cout<<std::endl;
+    ShowArray(MasSum);
+     */
+    
+    //TEST 7               //-
+    /*
+     DynamicArray Mas(10);
+     RandomArray(Mas,10);
+     ShowArray(Mas);
+     std::cout<<std::endl;
+     Mas-=6;
+     DynamicArray Sum=Mas;
+     TEST(TestMinus_X_Equal_Function(Mas, 6, Sum), "TEST + (Mas - X)");
+     std::cout<<std::endl;
+     ShowArray(Sum);
     */
     
-    
+    //TEST 8
+    /*
+     DynamicArray Mas(5);
+     RandomArray(Mas,5);
+     ShowArray(Mas);
+     std::cout<<std::endl;
+     DynamicArray Mas1(5);
+     RandomArray(Mas1,5);
+     ShowArray(Mas1);
+     Mas+=Mas1;
+     DynamicArray Sum=Mas;
+     TEST(TestMinus_X_Equal_Mas_Function(Mas, Mas1, Sum), "TEST + (Mas + X)");
+     std::cout<<std::endl;
+     ShowArray(Sum);
+    */
+
 }
 /*
 DynamicArray* DynamicArray:: operator new[](size_t size)
@@ -516,7 +580,7 @@ DynamicArray operator+(const DynamicArray& l,int x)
     
     
 }
-DynamicArray operator-(const DynamicArray & l,const DynamicArray& r)
+DynamicArray operator-(const DynamicArray & l,const DynamicArray& r) // -ПРОВЕРИТЬ
 {
     if(l.current_idx != r.current_idx)
         return l;
@@ -534,7 +598,7 @@ DynamicArray operator/(const DynamicArray& l,const DynamicArray& r)
     DynamicArray ret(l.current_idx);
     for (int i=0;i<l.current_idx;++i)
     {
-        ret[i] /= r[i];
+        ret.ar[i] /= r.ar[i];
     }
     return ret;
 }
@@ -543,7 +607,7 @@ DynamicArray operator-(const DynamicArray& l,int x)
     DynamicArray ret(l.current_idx);
     for (int i=0;i<l.current_idx;++i)
     {
-        ret[i] = l.ar[i]-x;
+        ret.ar[i] = l.ar[i]-x;
     }
     return ret;
 }
@@ -646,6 +710,7 @@ DynamicArray& DynamicArray::operator/=(int x)
 }
 DynamicArray& DynamicArray::operator+=(int x)
 {
+    
     for (int i = 0;i<this->current_idx;++i)
     {
         this->ar[i]+=x;
